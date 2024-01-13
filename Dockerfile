@@ -20,7 +20,7 @@ RUN pip install django-pyodbc-azure
 RUN apt-get update && \
     apt-get install -y wget unixodbc unixodbc-dev
 
-# Descarga e instala el controlador ODBC para SQL Server
+# # Descarga e instala el controlador ODBC para SQL Server
 RUN wget -qO- https://packages.microsoft.com/keys/microsoft.asc | apt-key add - && \
     wget -qO- https://packages.microsoft.com/config/debian/10/prod.list > /etc/apt/sources.list.d/mssql-release.list && \
     apt-get update && \

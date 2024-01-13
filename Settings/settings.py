@@ -86,32 +86,32 @@ TEMPLATES = [
 WSGI_APPLICATION = 'Settings.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+#  Database
+#  https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+
+DATABASES = {
+     'default': {
+         'ENGINE': 'django.db.backends.sqlite3',
+         'NAME': BASE_DIR / 'DataERP.sqlite3',
+     }
+ }
+
+
+
 
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'DataERP.sqlite3',
+#         'ENGINE': 'sql_server.pyodbc',
+#         'NAME': 'ERPvirtual',
+#         'USER': 'sa',
+#         'PASSWORD': 'Ramon200132',
+#         'HOST': 'basededatos',  
+#         'PORT': '1433',
+#         'OPTIONS': {
+#             'driver': 'ODBC Driver 17 for SQL Server',
+#         },
 #     }
 # }
-
-
-
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'sql_server.pyodbc',
-        'NAME': 'ERPvirtual',
-        'USER': 'sa',
-        'PASSWORD': 'Ramon200132',
-        'HOST': 'basededatos',  
-        'PORT': '1433',
-        'OPTIONS': {
-            'driver': 'ODBC Driver 17 for SQL Server',
-        },
-    }
-}
 
 
 
