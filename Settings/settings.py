@@ -98,20 +98,24 @@ WSGI_APPLICATION = 'Settings.wsgi.application'
 
 
 
-
 DATABASES = {
     'default': {
         'ENGINE': 'sql_server.pyodbc',
         'NAME': 'ERPvirtual',
         'USER': 'sa',
         'PASSWORD': 'Ramon200132',
-        'HOST': 'basededatos',  
+        'HOST': '25e26f493aae',  
         'PORT': '1433',
         'OPTIONS': {
             'driver': 'ODBC Driver 17 for SQL Server',
         },
     }
 }
+
+
+
+
+# settings.py
 
 
 

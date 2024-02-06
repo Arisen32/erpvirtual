@@ -1,17 +1,14 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login as auth_login, authenticate, logout as auth_logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.hashers import make_password
-from django.contrib import messages
 from .forms import Register ,LoginForm, Pedido
 from .models import Usuario, Pedidos
 from django.conf import settings
+from django.contrib.auth.hashers import make_password
+from django.contrib import messages
+from django.contrib.auth.models import Group
 
 
-
-
-
-# Create your views here.
 
 def inicio(request):
     
@@ -19,6 +16,7 @@ def inicio(request):
     return render(request, "inicio.html", context)
 
 
+# Esta funcion sirve para registrar un usuario en la base de datos
 def registro(request):
     if request.method == 'POST':
         form = Register(request.POST)
@@ -29,7 +27,7 @@ def registro(request):
             CodigoP = form.cleaned_data['CodigoP']
             RFC = form.cleaned_data['RFC']
             DireccionE = form.cleaned_data['DireccionE']
-            email = form.cleaned_data['Email']
+            email = form.cleaned_data['email']
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
 
@@ -37,8 +35,11 @@ def registro(request):
             hashed_password = make_password(password)
 
             # Crea una instancia de Usuario y guárdala en la base de datos
-            usuario = Usuario(RazonS=RazonS, DireccionF=DireccionF, CodigoP=CodigoP, RFC=RFC, DireccionE=DireccionE, Email=email, username=username, password=hashed_password)
+            usuario = Usuario(RazonS=RazonS, DireccionF=DireccionF, CodigoP=CodigoP, RFC=RFC, DireccionE=DireccionE, email=email, username=username, password=hashed_password)
             usuario.save()
+
+            grupo_usuarios_regulares, created = Group.objects.get_or_create(name='Usuarios_Regulares')
+            usuario.groups.add(grupo_usuarios_regulares)
 
             # Redirecciona a una página de éxito o realiza otras acciones necesarias
             return redirect('web:login')  # Cambia 'pagina_de_exito' por la URL a la que quieras redirigir
@@ -52,37 +53,54 @@ def registro(request):
     return render(request, "registro.html", context)
 
 
-
-
+#Esta funcion sirve para que el usuario inicie sesion autenticandolo y verificandolo desde la base de datos
 def login(request):
     if request.user.is_authenticated:
         return redirect('web:dashboard')
+
     form = LoginForm(request.POST or None)
+
     if form.is_valid():
-        login = form.cleaned_data['username']
+        username = form.cleaned_data['username']
         password = form.cleaned_data['password']
-        usuario = authenticate(request, login=login, password=password)
-        if usuario is not None:
-            auth_login(request, usuario)
-            if 'next' in request.GET:
-                return redirect(request.GET['next'])
-            return redirect("web:dashboard")
-        else:
-            messages.error(request, """Por favor introduzca un nombre de usuario y 
-                        contraseña correctos. 
+
+        try:
+            # Intentar obtener el usuario y verificar si está en el grupo 'Usuarios_Regulares'
+            usuario = authenticate(request, username=username, password=password)
+
+            if usuario is not None and usuario.is_active:
+                grupos_usuarios_regulares = Group.objects.get(name='Usuarios_Regulares')
+
+                if grupos_usuarios_regulares in usuario.groups.all():
+                    auth_login(request, usuario)
+
+                    if 'next' in request.GET:
+                        return redirect(request.GET['next'])
+
+                    return redirect("web:dashboard")
+                else:
+                    messages.error(request, """Tu cuenta no tiene acceso. 
                         Si aún no estás registrado haz clic en el enlace de abajo Regístrate Aquí.""")
-            return redirect('web:dashboard')
+            else:
+                messages.error(request, "Nombre de usuario o contraseña incorrectos o cuenta inactiva.")
+
+        except ObjectDoesNotExist:
+            messages.error(request, "Usuario no encontrado o no pertenece al grupo 'Usuarios_Regulares'.")
+
     context = {
         'form': form,
     }
     return render(request, 'registration/login.html', context)
 
 
+#Esta funcion sirve para desloguear al usuario de su cuenta y mandarlo al login
 def logout(request):
     auth_logout(request)
 
     return redirect('web:login')
 
+
+#Esta funcion sirve para guardar la orden de trabajo generada por el usuario logueado en el dashboard
 def dashboard(request):
     if request.method == 'POST':
         form = Pedido(request.POST)

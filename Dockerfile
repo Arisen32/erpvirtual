@@ -26,4 +26,15 @@ RUN wget -qO- https://packages.microsoft.com/keys/microsoft.asc | apt-key add - 
     apt-get update && \
     ACCEPT_EULA=Y apt-get install -y msodbcsql17
 
+# Establece la variable de entorno ACCEPT_EULA para aceptar los términos de la licencia
+ENV ACCEPT_EULA=Y
+
+# Instala las herramientas de línea de comandos de SQL Server
+RUN apt-get update && apt-get install -y mssql-tools
+
+
+# Ajusta la ruta según la configuración de tu imagen
+ENV PATH "$PATH:/opt/mssql-tools/bin"
+
+
 

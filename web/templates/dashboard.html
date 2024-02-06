@@ -1,91 +1,67 @@
-{% include "fragmentos/base.html" %}
+{% extends "base.html" %}
 
+{% block title%} Dashboard {% endblock %}
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-{% load static %}
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>  
 
 {% block content %}  
-
-
-
-
-
-<div id="main-container">
-  <div class="menu">
-  
-          <ul class="menu-content">
-              <li><a href="{%url 'web:dashboard' %}">
-                  <span class="material-symbols-outlined">home</span><span>Home</span></a></li>
-              <li><a href="#">
-                  <span class="material-symbols-outlined">settings</span><span>Settings</span></a></li>
-              <li><a href="#">
-                  <span class="material-symbols-outlined">person</span><span>Account</span></a></li>
-              <li><a href="{%url 'web:logout'%}">
-                  <span class="material-symbols-outlined">logout</span><span>Logout</span></a></li>
-          </ul>
-      </div>
-  <div>
-  
-  </div>
-  <div class="content">
-    <div class="container  align-items-center justify-content-center">
-      <div class="row justify-content-center">
-        <div class="col-md-6">
-          {{ form.errors }}
-          <form method="post">
-            {% csrf_token %}
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label  class="form-label">Moneda de Cotización</label>
-                  <input type="text" class="form-control" id="Moneda" name="Moneda" required>
+    <div class="content">
+      <div class="container  align-items-center justify-content-center">
+        <div class="row justify-content-center">
+          <div class="col-md-6">
+            {{ form.errors }}
+            <form method="post">
+              {% csrf_token %}
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="form-label">Moneda de Cotización</label>
+                    <input type="text" class="form-control" id="Moneda" name="Moneda" required>
+                  </div>
+    
+                  <div class="form-group">
+                    <label class="form-label">Solicitante</label>
+                    <input type="text" class="form-control" id="Solicitante" name="Solicitante" required>
+                  </div>
+    
+                  <div class="form-group">
+                    <label class="form-label">Nombre de la Empresa</label>
+                    <input type="text" class="form-control" id="Empresa" name="Empresa" required>
+                  </div>
                 </div>
-          
-                <div class="form-group">
-                  <label  class="form-label">Solicitante</label>
-                  <input type="text" class="form-control" id="Solicitante" name="Solicitante" required>
-                </div>
-          
-                <div class="form-group">
-                  <label  class="form-label">Nombre de la Empresa</label>
-                  <input type="text" class="form-control" id="Empresa" name="Empresa" required>
+    
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="form-label">Dirección</label>
+                    <input type="text" class="form-control" id="Direccion" name="Direccion" required>
+                  </div>
+    
+                  <div class="form-group">
+                    <label class="form-label">Teléfono</label>
+                    <input type="number" class="form-control" id="Telefono" name="Telefono" required>
+                  </div>
+    
+                  <div class="form-group">
+                    <label class="form-label">Cantidad</label>
+                    <input type="number" class="form-control" id="Cantidad" name="Cantidad" required>
+                  </div>
                 </div>
               </div>
-          
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label  class="form-label">Dirección</label>
-                  <input type="text" class="form-control" id="Direccion" name="Direccion" required>
-                </div>
-          
-                <div class="form-group">
-                  <label  class="form-label">Teléfono</label>
-                  <input type="number" class="form-control" id="Telefono" name="Telefono" required>
-                </div>
-          
-                <div class="form-group">
-                  <label  class="form-label">Cantidad</label>
-                  <input type="number" class="form-control" id="Cantidad" name="Cantidad" required>
-                </div>
+    
+              <div class="form-group">
+                <label class="form-label">Detalles del Pedido:</label>
+                <textarea class="form-control" id="Detalles" name="Detalles" rows="4"></textarea>
               </div>
-            </div>
-          
-            <div class="form-group">
-              <label  class="form-label">Detalles del Pedido:</label>
-              <textarea class="form-control" id="Detalles" name="Detalles" rows="4"></textarea>
-            </div>
-          
-            <div class="text-center">
-              <button type="submit" class="btn btn-primary" value="Enviar">Realizar Pedido</button>
-            </div>
-          </form>
-
+    
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary" value="Enviar">Realizar Pedido</button>
+              </div>
+            </form>
+    
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
-
 {% endblock %}
     

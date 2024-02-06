@@ -9,7 +9,7 @@ class Register(forms.Form):
     CodigoP = forms.CharField()
     RFC = forms.CharField()
     DireccionE = forms.CharField()
-    Email = forms.CharField()
+    email = forms.CharField()
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
         
