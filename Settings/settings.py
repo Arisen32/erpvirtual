@@ -162,6 +162,9 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'web/static')]
 
+AUTH_USER_MODEL = 'web.Usuario'
+
+
 # settings.py
 LOGIN_URL = 'web:dashboard'  # Reemplaza 'web:login' con la URL de tu vista de inicio de sesión
 

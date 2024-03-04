@@ -2,8 +2,6 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
 
-
-
 class UsuarioManager(BaseUserManager):
     def create_user(self, email, username, password=None, **extra_fields):
         if not email:
@@ -65,11 +63,4 @@ class Pedidos(models.Model):
     Direccion = models.CharField(max_length=200)
     Telefono = models.CharField(max_length=100)  
     Cantidad = models.CharField(max_length=100) 
-    Detalles = models.CharField(max_length=400)
-    
-   
-    
-
-
-    
-    
+    Detalles = models.CharField(max_length=400)    

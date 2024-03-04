@@ -1,4 +1,4 @@
-.gradient-custom {
+body{
     /* fallback for old browsers */
     background: -webkit-linear-gradient(to right,#051f30, #000000);
     
@@ -7,4 +7,3 @@
      
     height: 200vh;
     }
-    

@@ -1,67 +1,43 @@
 {% extends "base.html" %}
-
 {% block title%} Dashboard {% endblock %}
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>  
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+{% block content %}
+<!-- if que se hizo con jinja loop para que si el usuario es usuario regular le muestre la prden de trabajo y else que le muestrre la aceptacion de la orden de trabajo al empleado -->
+{% if request.user.is_active == 1 %}
+<!--usuario regular -->
+<section>
+  {{ form.errors }}
+  <form  method="post" >
+    {% csrf_token %}
+    <fieldset>
+      <label  for="typeMonedaX">Moneda de Cotización</label>
+      <input class="form-control input-control" id="Moneda" type="text" name="Moneda" required>
+      <label  for="typesolicitanteX">Solicitante</label>
+      <input class="form-control input-control" id="Solicitante" type="text" name="Solicitante" required>
+      <label  for="typeEmpresaX">Nombre de la Empresa</label>
+      <input class="form-control input-control" id="Empresa" type="text" name="Empresa" required>
+    </fieldset>
+    <fieldset>
+      <label  for="typeDireccionX">Direccion</label>
+      <input class="form-control 0" id="Direccion" type="text" name="Direccion" required>
+      <label  for="typeTelefonoX">Telefono</label>
+      <input class="form-control input-control" id="Telefono" type="number" name="Telefono" required>
+      <label  for="typeCantidadX">Cantidad</label>
+      <input class="form-control input-control" id="Cantidad" type="number" name="Cantidad" required>
+    </fieldset>
+    <div class="textarea">
+      <label for="typetextareaX">Detalles del Pedido:</label>
+      <textarea name="textarea" id="textarea" cols="3" rows="6"></textarea>
 
-{% block content %}  
-    <div class="content">
-      <div class="container  align-items-center justify-content-center">
-        <div class="row justify-content-center">
-          <div class="col-md-6">
-            {{ form.errors }}
-            <form method="post">
-              {% csrf_token %}
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label class="form-label">Moneda de Cotización</label>
-                    <input type="text" class="form-control" id="Moneda" name="Moneda" required>
-                  </div>
-    
-                  <div class="form-group">
-                    <label class="form-label">Solicitante</label>
-                    <input type="text" class="form-control" id="Solicitante" name="Solicitante" required>
-                  </div>
-    
-                  <div class="form-group">
-                    <label class="form-label">Nombre de la Empresa</label>
-                    <input type="text" class="form-control" id="Empresa" name="Empresa" required>
-                  </div>
-                </div>
-    
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label class="form-label">Dirección</label>
-                    <input type="text" class="form-control" id="Direccion" name="Direccion" required>
-                  </div>
-    
-                  <div class="form-group">
-                    <label class="form-label">Teléfono</label>
-                    <input type="number" class="form-control" id="Telefono" name="Telefono" required>
-                  </div>
-    
-                  <div class="form-group">
-                    <label class="form-label">Cantidad</label>
-                    <input type="number" class="form-control" id="Cantidad" name="Cantidad" required>
-                  </div>
-                </div>
-              </div>
-    
-              <div class="form-group">
-                <label class="form-label">Detalles del Pedido:</label>
-                <textarea class="form-control" id="Detalles" name="Detalles" rows="4"></textarea>
-              </div>
-    
-              <div class="text-center">
-                <button type="submit" class="btn btn-primary" value="Enviar">Realizar Pedido</button>
-              </div>
-            </form>
-    
-          </div>
-        </div>
-      </div>
+      
+      <a href="{% url 'web:dashboard' %}"></a><button class="btn btn-primary" id="submit" type="submit" value="Enviar">Realizar pedido</button>
     </div>
+  </form>
+</section>
+{% else %}
+<!-- usuario trabajo -->
+
+{% endif %}
 {% endblock %}
-    

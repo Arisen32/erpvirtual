@@ -15,9 +15,10 @@ class Register(forms.Form):
         
         
 class LoginForm(forms.Form):
-    username = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput)
-        
+    email = forms.EmailField(label='Correo Electrónico', max_length=255, required=True)
+    password = forms.CharField(label='Contraseña', widget=forms.PasswordInput, required=True)
+
+ 
 
 
 class Pedido(forms.Form):
@@ -30,3 +31,10 @@ class Pedido(forms.Form):
     Detalles = forms.CharField()
     
 
+class Registro_Trabajador(forms.Form):
+    CodigoP = forms.CharField()
+    RFC = forms.CharField()
+    Direccion = forms.CharField()
+    email = forms.CharField()
+    username = forms.CharField()
+    password = forms.CharField(widget=forms.PasswordInput) 

@@ -1,84 +1,125 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'registro.css' %}">
-
 <!doctype html>
 <html lang="en">
+
 <head>
-
-    <title>ERP|Registro</title>
+  <title>ERP|Registro</title>
 </head>
+
 <body>
- 
 
-{{ form.errors }}
-   <form method="post">
-    {% csrf_token %}
-    <section class="gradient-custom">
-        <div class="container py-5 h-100">
-          <div class="row  justify-content-center align-items-center h-50">
-            <div class="col-8 col-md-8 col-lg-6 col-xl-5">
-              <div class="card bg-dark text-white" style="border-radius: 1rem;">
-                <div class="card-body text-center">
-      
-                  <div class="mb-md-5 mt-md-4 pb-5">
-      
-                    <h2 class="fw-bold mb-2 text-uppercase">Registro</h2>
-                    
-                    <div class="form-outline form-white mb-4">
-                      <input type="text" id="RazonS" name="RazonS" class="form-control form-control-lg"required>
-                      <label class="form-label" for="typeRazonSocialX">Razon Social</label>
-                    </div>
-                    <div class="form-outline form-white mb-4">
-                      <input type="text" id="DireccionF" name="DireccionF" class="form-control form-control-lg"required>
-                      <label class="form-label" for="typeDireccionFX">Direccion Fiscal</label>
-                    </div>
-                    <div class="form-outline form-white mb-4">
-                      <input type="text" id="CodigoP" name="CodigoP" class="form-control form-control-lg"required>
-                      <label class="form-label" for="typeCodigoPX">Codigo Postal</label>
-                    </div>
-                    <div class="form-outline form-white mb-4">
-                      <input type="text" id="RFC" name="RFC" class="form-control form-control-lg"required>
-                      <label class="form-label" for="typeRFCX">RFC</label>
-                    </div>
-                    <div class="form-outline form-white mb-4">
-                      <input type="text" id="DireccionE" name="DireccionE" class="form-control form-control-lg"required>
-                      <label class="form-label" for="typeDireccionEX">Direccion de entrega</label>
-                    </div>
-                     
-                    <div class="form-outline form-white mb-4">
-                      <input type="email" id="email" name="email" class="form-control form-control-lg"required>
-                      <label class="form-label" for="typeEmailX">Correo Electronico</label>
-                    </div>
+  <input type="checkbox" id="clienteCheckbox" name="tipoUsuario" value="cliente">
+  <label for="clienteCheckbox">Cliente</label>
 
-                    <div class="form-outline form-white mb-4">
-                        <input type="text" id="username" name="username" class="form-control form-control-lg"required>
-                        <label class="form-label" for="typenameX">Usuario</label>
+  <input type="checkbox" id="empleadoCheckbox" name="tipoUsuario" value="empleado">
+  <label for="empleadoCheckbox">Empleado</label>
+
+    <section class="cliente-section" style="display: none;">
+        <!-- Your Cliente Form HTML here -->
+        <h2>Cliente Form</h2>
+        
+          <form id="clienteForm" method="post">
+            {% csrf_token %}
+            <section class="gradient-custom">
+              <div class="container py-5 h-100">
+                <div class="row  justify-content-center align-items-center h-50">
+                  <div class="col-8 col-md-8 col-lg-6 col-xl-5">
+                    <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                      <div class="card-body text-center">
+                        <div class="mb-md-5 mt-md-4 pb-5">
+                          <h2 class="fw-bold mb-2 text-uppercase">Registro</h2>
+                          <div class="form-outline form-white mb-4">
+                            <input type="text" id="RazonS" name="RazonS" class="form-control form-control-lg" required>
+                            <label class="form-label" for="typeRazonSocialX">Razon Social</label>
+                          </div>
+                          <div class="form-outline form-white mb-4">
+                            <input type="text" id="DireccionF" name="DireccionF" class="form-control form-control-lg" required>
+                            <label class="form-label" for="typeDireccionFX">Direccion Fiscal</label>
+                          </div>
+                          <div class="form-outline form-white mb-4">
+                            <input type="text" id="CodigoP" name="CodigoP" class="form-control form-control-lg" required>
+                            <label class="form-label" for="typeCodigoPX">Codigo Postal</label>
+                          </div>
+                          <div class="form-outline form-white mb-4">
+                            <input type="text" id="RFC" name="RFC" class="form-control form-control-lg" required>
+                            <label class="form-label" for="typeRFCX">RFC</label>
+                          </div>
+                          <div class="form-outline form-white mb-4">
+                            <input type="text" id="DireccionE" name="DireccionE" class="form-control form-control-lg" required>
+                            <label class="form-label" for="typeDireccionEX">Direccion de entrega</label>
+                          </div>
+                          <div class="form-outline form-white mb-4">
+                            <input type="email" id="email" name="email" class="form-control form-control-lg" required>
+                            <label class="form-label" for="typeEmailX">Correo Electronico</label>
+                          </div>
+                          <div class="form-outline form-white mb-4">
+                            <input type="text" id="username" name="username" class="form-control form-control-lg" required>
+                            <label class="form-label" for="typenameX">Usuario</label>
+                          </div>
+                          <div class="form-outline form-white mb-4">
+                            <input type="password" id="password" name="password" class="form-control form-control-lg" required>
+                            <label class="form-label" for="typePasswordX">Contraseña </label>
+                          </div>
+                          <a href="{% url 'web:login' %}"><button class="btn btn-outline-light btn-lg px-5" type="submit"
+                              value="Enviar">Registrarse</button></a>
+                          <a href="{% url 'web:login' %}">¿Ya te has registrado perrillo?</a>
+                        </div>
                       </div>
-
-                    <div class="form-outline form-white mb-4">
-                      <input type="password" id="password" name="password" class="form-control form-control-lg"required>
-                      <label class="form-label" for="typePasswordX">Contraseña </label>
                     </div>
-
-
-                      <a href="{% url 'web:login' %}"><button class="btn btn-outline-light btn-lg px-5" type="submit" value="Enviar">Registrarse</button></a>
-      
-                    
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </form>
+            </section>
+          </form>
+    </section>
+
+    <section class="empleado-section" style="display: none;">
+        <!-- Your Empleado Form HTML here -->
+        <h2>Empleado Form</h2>
+        <form id="empleadoForm">
+            <!-- Include your Empleado Form fields here -->
+        </form>
+    </section>
 
 
+    
+
+
+
+
+
+  
 </body>
-</html>
 
+</html>
+<script>
+  const clienteCheckbox = document.getElementById('clienteCheckbox');
+  const empleadoCheckbox = document.getElementById('empleadoCheckbox');
+  const clienteForm = document.querySelector('.cliente-section');
+  const empleadoForm = document.querySelector('.empleado-section');
+
+  clienteCheckbox.addEventListener('change', () => {
+      if (clienteCheckbox.checked) {
+          empleadoCheckbox.checked = false;
+          empleadoForm.style.display = 'none';
+          clienteForm.style.display = 'block';
+      } else {
+          clienteForm.style.display = 'none';
+      }
+  });
+
+  empleadoCheckbox.addEventListener('change', () => {
+      if (empleadoCheckbox.checked) {
+          clienteCheckbox.checked = false;
+          clienteForm.style.display = 'none';
+          empleadoForm.style.display = 'block';
+      } else {
+          empleadoForm.style.display = 'none';
+      }
+  });
+</script>
 

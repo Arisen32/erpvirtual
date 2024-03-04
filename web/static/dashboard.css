@@ -1,4 +1,93 @@
-label {
-    color: white;
-    
+body {
+  background: linear-gradient(#051f30, #000000);
+}
+
+
+section {
+  margin: 0 100px;
+  position: fixed;
+  top: 1px;
+  width: 81.1vw;
+  height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+}
+
+/* responsive section */
+
+@media screen and (width < 821px) {
+  section {
+    margin: 0 55px;
   }
+}
+
+/* Activar para configurar el formulario nuevo */
+form {
+  margin: 0 auto;
+  display:block;
+  width: 420px;
+  padding-bottom:2em;
+  border-radius:0.5em;
+}
+
+
+/* Responsivo del formulario */
+@media screen and (width < 430px) {
+  form {
+    background-color: red;
+    margin: 0px auto;
+    display: block;
+    width: 337px;
+    padding: 0px;
+
+  }
+}
+
+fieldset {
+  display: inline;
+}
+
+/* fielset */
+
+@media screen and (width < 430px) {
+  fieldset {
+    display: inline;
+  }
+}
+
+label {
+  color:white;
+  display:block;
+  width:100%;
+}
+
+
+
+input, select, textarea  {
+  display:inline-block;
+  width: 100%;
+  margin: 10px auto;
+  font-size:16px;
+  border:none;
+}
+/* responsivo dentro del formulario */
+
+@media screen and (width < 430px) {
+  input, select, textarea  {
+    display:inline-block;
+    width: 100%;
+    margin: 10px auto;
+    font-size:16px;
+    border:none;
+  }
+}
+
+
+#textarea {
+  border-radius: 0.5em;
+}
+#submit {
+  display: block;
+  margin: 0 auto;
+}
