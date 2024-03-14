@@ -1,6 +1,7 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script  src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
 {% load static %}
 
@@ -30,17 +31,24 @@
                                 {{ form.errors }}
                                 
                                 <div class="form-outline form-white mb-4">
-                                  {{ form.email.label_tag }}
-                                  {{ form.email }}
+                                    <div class="form-label-group">
+                                        {{ form.email.label_tag }}
+                                        {{ form.email }}
+                                    </div>
+                                 
                               </div>
                               
 
-                                <div class="form-outline form-white mb-4">
+                              <div class="form-outline form-white mb-4">
+                                <div class="form-label-group">
                                     {{ form.password.label_tag }}
                                     {{ form.password }}
                                 </div>
+                            </div>
+                            
+                            
 
-                                <button class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
+                                <button onclick="validateData()" class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
                             </div>
 
                             <div>
@@ -66,31 +74,45 @@
   </div>
   </section>
 
+  <script>
+    // Obtener referencias a los campos de usuario y contraseña
+    const user = document.getElementById('{{ form.email.id_for_label }}');
+    const pass = document.getElementById('{{ form.password.id_for_label }}');
+
+    // Validar los campos de usuario y contraseña
+    function validateData() {
+      if (user.value === '') {
+        Toastify({
+          text: 'El campo del email está vacío',
+          duration: 1500,
+          style: {
+            background: "linear-gradient(red, red)"
+          }
+        }).showToast();
+      } else if (pass.value === '') {
+        Toastify({
+          text: 'Debes ingresar tu contraseña',
+          duration: 1500,
+          style: {
+            background: "linear-gradient(red, red)"
+          }
+        }).showToast();
+      } else {
+        Toastify({
+          text: 'Bienvenido',
+          duration: 1500,
+          style: {
+            background: "linear-gradient(green, green)"
+          }
+        }).showToast();
+      }
+    }
+  </script>
+
+
+
 
   {% endblock %}
 </body>
 
 </html>
-<style>
-  /* Aplica estilos a todas las etiquetas de formulario */
-  label {
-      font-weight: bold;
-      color: white;
-      
-      /* Agrega otros estilos según tus preferencias */
-  }
-
-  /* Aplica estilos específicos a la etiqueta del campo de contraseña */
-  #id_password_label {
-      font-size: 16px;
-      border-radius: 20px;
-      /* Agrega otros estilos específicos según tus preferencias */
-  }
-
-  /* Puedes agregar estilos adicionales al campo de contraseña si lo deseas */
-  #id_password {
-      width: 200px;
-      border-radius: 20px;
-      /* Agrega otros estilos según tus preferencias */
-  }
-</style>

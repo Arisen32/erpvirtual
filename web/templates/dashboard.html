@@ -1,43 +1,74 @@
 {% extends "base.html" %}
+
 {% block title%} Dashboard {% endblock %}
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 {% block content %}
-<!-- if que se hizo con jinja loop para que si el usuario es usuario regular le muestre la prden de trabajo y else que le muestrre la aceptacion de la orden de trabajo al empleado -->
-{% if request.user.is_active == 1 %}
-<!--usuario regular -->
 <section>
-  {{ form.errors }}
-  <form  method="post" >
-    {% csrf_token %}
-    <fieldset>
-      <label  for="typeMonedaX">Moneda de Cotización</label>
-      <input class="form-control input-control" id="Moneda" type="text" name="Moneda" required>
-      <label  for="typesolicitanteX">Solicitante</label>
-      <input class="form-control input-control" id="Solicitante" type="text" name="Solicitante" required>
-      <label  for="typeEmpresaX">Nombre de la Empresa</label>
-      <input class="form-control input-control" id="Empresa" type="text" name="Empresa" required>
-    </fieldset>
-    <fieldset>
-      <label  for="typeDireccionX">Direccion</label>
-      <input class="form-control 0" id="Direccion" type="text" name="Direccion" required>
-      <label  for="typeTelefonoX">Telefono</label>
-      <input class="form-control input-control" id="Telefono" type="number" name="Telefono" required>
-      <label  for="typeCantidadX">Cantidad</label>
-      <input class="form-control input-control" id="Cantidad" type="number" name="Cantidad" required>
-    </fieldset>
-    <div class="textarea">
-      <label for="typetextareaX">Detalles del Pedido:</label>
-      <textarea name="textarea" id="textarea" cols="3" rows="6"></textarea>
+      {{ form.errors }}
+      <form  method="post" action="">
+          {% csrf_token %}
+          <fieldset>
+              <label for="Moneda">Moneda de Cotización<input class="form-control input-control" id="Moneda" type="text" name="Moneda" required></label>
+              <label for="Solicitante">Solicitante<input class="form-control input-control" id="Solicitante" type="text" name="Solicitante" required></label>
+              <label for="Empresa">Nombre de la Empresa<input class="form-control input-control" id="Empresa" type="text" name="Empresa" required /></label>
+          </fieldset>
+          <fieldset>
+            <label  for="Direccion">Direccion<input class="form-control 0" id="Direccion" type="text" name="Direccion" required></label>
+            <label  for="Telefono">Telefono<input class="form-control input-control" id="Telefono" type="number" name="Telefono" required></label>
+            <label  for="Cantidad">Cantidad<input class="form-control input-control" id="Cantidad" type="text" name="Cantidad" required /></label>
+          </fieldset>
+          <div class="textarea">
+            <label for="textarea">Detalles del Pedido:<textarea name="textarea" id="textarea" cols="3" rows="6"></textarea></label>
+            <button class="btn btn-primary" id="submit" type="submit" value="Enviar">Realizar pedido</button>
+          </div>
+      </form>
 
-      
-      <a href="{% url 'web:dashboard' %}"></a><button class="btn btn-primary" id="submit" type="submit" value="Enviar">Realizar pedido</button>
+      <form class="second-form"  method="post" action="">
+        {% csrf_token %}
+        <fieldset>
+            <label for="nombre-empresa">Nombre de la Empresa<input class="form-control input-control" id="nombre-empresa" type="text" name="nombre-empresa" required></label>
+            <label for="direccion">Direccion<input class="form-control input-control" id="direccion" type="text" name="direccion" required></label>
+            <label for="zip">Codigo postal<input class="form-control input-control" id="zip" type="number" name="zip" required /></label>
+        </fieldset>
+        <fieldset>
+          <label  for="medidas">Medidas<input class="form-control 0" id="medidas" type="number" name="medidas" required></label>
+          <label  for="mm">mm<input class="form-control input-control" id="mm" type="number" name="mm" required></label>
+          <label  for="cm">cm<input class="form-control input-control" id="cm" type="number" name="cm" required /></label>
+        </fieldset>
+        <div class="textarea">
+          <label for="textarea">Detalles del Pedido:<textarea name="textarea" id="textarea" cols="3" rows="6"></textarea></label>
+          <button class="btn btn-primary" id="submit" type="submit" value="Enviar">Realizar pedido</button>
+        </div>
+    </form>
+
+    <div class="cube-container">
+      <div class="container">
+        <div class="cube" id="cube">
+          <div class="side front">1</div>
+          <div class="side back">3</div>
+          <div class="side right">2</div>
+          <div class="side left">4</div>
+        </div>
+      </div>
+      <input type="range" min="0" max="360" value="0" id="rangeInput">
+    
+    
+      <script>
+        const cube = document.getElementById('cube');
+        const rangeInput = document.getElementById('rangeInput');
+  
+        rangeInput.addEventListener('input', () => {
+          const value = rangeInput.value;
+          cube.style.transform = `rotateY(${-value}deg)`; /*Establece la direccion de giro*/
+        });
+  
+  
+      </script>
     </div>
-  </form>
-</section>
-{% else %}
-<!-- usuario trabajo -->
+  </section>
 
-{% endif %}
+
 {% endblock %}

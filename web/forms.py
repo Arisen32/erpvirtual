@@ -12,6 +12,16 @@ class Register(forms.Form):
     email = forms.CharField()
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
+
+class RegisterEmpleado(forms.Form):
+    Nombre = forms.CharField()
+    Direccion = forms.CharField()
+    CodigoPostal = forms.CharField()
+    RFCempleado = forms.CharField()
+    Telefono = forms.CharField()
+    emailEmpleado = forms.CharField()
+    usernameEmpleado = forms.CharField()
+    passwordEmpleado = forms.CharField(widget=forms.PasswordInput)    
         
         
 class LoginForm(forms.Form):

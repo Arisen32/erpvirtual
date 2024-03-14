@@ -7,7 +7,7 @@ section {
   margin: 0 100px;
   position: fixed;
   top: 1px;
-  width: 81.1vw;
+  width: 84vw;
   height: 100vh;
   display: flex;
   flex-wrap: wrap;
@@ -16,8 +16,9 @@ section {
 
 /* responsive section */
 
-@media screen and (width < 821px) {
+@media screen and (width < 1036px) {
   section {
+    background-color: red;
     margin: 0 55px;
   }
 }
@@ -32,17 +33,6 @@ form {
 }
 
 
-/* Responsivo del formulario */
-@media screen and (width < 430px) {
-  form {
-    background-color: red;
-    margin: 0px auto;
-    display: block;
-    width: 337px;
-    padding: 0px;
-
-  }
-}
 
 fieldset {
   display: inline;
@@ -90,4 +80,85 @@ input, select, textarea  {
 #submit {
   display: block;
   margin: 0 auto;
+}
+
+
+
+/* Segundo formulario */
+
+.second-form {
+  display: inline-block;
+}
+/* Responsivo de los formularios*/
+@media screen and (width < 516px) {
+  form, .second-form {
+    margin: 0px auto;
+    display: inline-grid;
+    width: 337px;
+    padding: 0px;
+    justify-items: stretch;
+
+  }
+}
+
+
+/* Estilos para el contenedor del cubo */
+
+
+ .cube-container {
+    display: flex;
+    width: 100%;
+    /* height: 98vh; */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+ }
+
+ 
+ .container {
+   perspective: 800px;
+   height: 300px;
+   /* margin: 100px auto; */
+  }
+  
+  .cube {
+    display: flex;
+    max-width: 100vw;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.5s;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .side {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border: 2px solid #000;
+  text-align: center;
+  line-height: 200px;
+  font-size: 24px;
+  color: #fff;
+}
+.front { 
+  transform: translateZ(100px); 
+  background: #ff5722; 
+}
+.back { 
+  transform: rotateY(180deg) translateZ(100px); 
+  background: #4caf50; 
+}
+.right { 
+  transform: rotateY(90deg) translateZ(100px); 
+  background: #2196f3; 
+}
+.left { 
+  transform: rotateY(-90deg) translateZ(100px); 
+  background: #ffeb3b; }
+
+input[type=range] {
+  width: 200px;
 }

@@ -177,3 +177,10 @@ LOGIN_REDIRECT_URL = 'dashboard'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
+
+# EMAIL_HOST = 'smtp.googlemail.com'
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = 'erpvirtual1@gmail.com'
+# EMAIL_HOST_PASSWORD = 'ERPweb1997'
+# EMAIL_USE_TLS = True

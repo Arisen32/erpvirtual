@@ -3,7 +3,7 @@
 @import url(https://fonts.googleapis.com/css?family=Titillium+Web:300);
 .fa-2x {
   display: flex!important;
-  font-size: 2em!important;
+  font-size: 1.2em!important;
   justify-content: center!important;
   flex-direction: column!important;
 }
@@ -78,8 +78,7 @@ position:relative;
 display:table-cell;
 vertical-align:middle;
 width:190px;
-font-family: 'Titillium Web', sans-serif;
-font-size: 20px;
+  font-family: 'Titillium Web', sans-serif;
 }
 
 .main-menu>ul.logout {
