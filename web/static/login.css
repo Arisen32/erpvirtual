@@ -1,35 +1,56 @@
-.gradient-custom {
-    background: -webkit-linear-gradient(to right,#051f30, #000000);
-    
-    background: linear-gradient(#051f30, #000000);
-    }
-    body{
-        width: 99.99vw;
-        height: 100%;
-    }
-    
-  label {
-      font-weight: bold;
-      color: white;
-      margin-right: 10%;
-      
-  }
- 
-  .form-label-group {
-    display: grid;
-    grid-template-rows: auto 1fr; 
-    gap: 1px;   
+body {
+  background: -webkit-linear-gradient(to right, #051f30, #000000);
+
+  background: linear-gradient(#051f30, #000000);
+
+  color: white;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+label {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  
+}
+
+.form-label-group{
+ width: 50%;
+ display: inline-table;
+
 }
 
 
-  #id_password {
-      width: 220px;
-      border-radius: 20px;
-      margin-left: 25%;
-  }
 
-  #id_email{
-    margin-left: 25%;
-    width: 220px;
-    border-radius: 20px;
-  }
+#id_password {
+  width: 220px;
+  border-radius: 5px;
+
+}
+
+#id_email {
+
+  width: 220px;
+  border-radius: 5px;
+}
+
+
+.custom-icon {
+  font-size: 2rem;
+  /* Tamaño del icono */
+
+}
+
+form {
+  padding: 20px;
+  border-radius: 5px;
+  width: 25%;
+  height: 70%;
+
+}

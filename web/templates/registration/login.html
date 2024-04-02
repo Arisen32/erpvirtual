@@ -1,7 +1,8 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script  src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.7.2/font/bootstrap-icons.min.css" rel="stylesheet">
 
 {% load static %}
 
@@ -14,105 +15,41 @@
 </head>
 
 <body>
-  {% block content %}
+
+
+  <a href="{% url 'web:inicio' %}" style="position: absolute; top: 0; left: 0;"><i
+      class="bi bi-house-door-fill custom-icon"></i></a>
+
 
   <form method="post">
     {% csrf_token %}
-    <section class="vh-50 gradient-custom">
-        <div class="container py-5 h-100">
-            <div class="row justify-content-center align-items-center h-50">
-                <div class="col-8 col-md-8 col-lg-6 col-xl-5">
-                    <div class="card bg-dark text-white" style="border-radius: 1rem;">
-                        <div class="card-body text-center">
 
-                            <div class="mb-md-5 mt-md-4 pb-5">
-                                <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
-
-                                {{ form.errors }}
-                                
-                                <div class="form-outline form-white mb-4">
-                                    <div class="form-label-group">
-                                        {{ form.email.label_tag }}
-                                        {{ form.email }}
-                                    </div>
-                                 
-                              </div>
-                              
-
-                              <div class="form-outline form-white mb-4">
-                                <div class="form-label-group">
-                                    {{ form.password.label_tag }}
-                                    {{ form.password }}
-                                </div>
-                            </div>
-                            
-                            
-
-                                <button onclick="validateData()" class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
-                            </div>
-
-                            <div>
-                                <p class="mb-0">Eres nuevo? <a href="{% url 'web:registro' %}" class="text-white-50 fw-bold">Registrate</a></p>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="card-body text-center">
+      <div class="mb-md-5 mt-md-4 pb-5">
+        <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
+        {{ form.errors }}
+        <div class="form-outline form-white mb-4">
+          <div class="form-label-group">
+            {{ form.email.label_tag }}
+            {{ form.email }}
+          </div>
         </div>
-    </section>
-</form>
+        <div class="form-outline form-white mb-4">
+          <div class="form-label-group">
+            <label id="contra">{{ form.password.label_tag }}</label>
+            {{ form.password }}
+          </div>
+        </div>
+        <button class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
 
-  </div>
+        <p>¿Eres nuevo? <a href="{% url 'web:registro' %}" class="text-white-50 fw-bold">Regístrate</a></p>
+      </div>
 
+       </div>
 
-
-  </div>
-  </div>
-  </div>
-  </div>
-  </div>
-  </section>
-
-  <script>
-    // Obtener referencias a los campos de usuario y contraseña
-    const user = document.getElementById('{{ form.email.id_for_label }}');
-    const pass = document.getElementById('{{ form.password.id_for_label }}');
-
-    // Validar los campos de usuario y contraseña
-    function validateData() {
-      if (user.value === '') {
-        Toastify({
-          text: 'El campo del email está vacío',
-          duration: 1500,
-          style: {
-            background: "linear-gradient(red, red)"
-          }
-        }).showToast();
-      } else if (pass.value === '') {
-        Toastify({
-          text: 'Debes ingresar tu contraseña',
-          duration: 1500,
-          style: {
-            background: "linear-gradient(red, red)"
-          }
-        }).showToast();
-      } else {
-        Toastify({
-          text: 'Bienvenido',
-          duration: 1500,
-          style: {
-            background: "linear-gradient(green, green)"
-          }
-        }).showToast();
-      }
-    }
-  </script>
+  </form>
 
 
-
-
-  {% endblock %}
 </body>
 
 </html>

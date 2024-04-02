@@ -11,5 +11,6 @@ urlpatterns=[
     path('dashboard/', views.dashboard, name="dashboard"),
     path('', views.inicio, name="inicio"),
     path('registro/', views.registro, name="registro"),
+    path('ordenes-cliente/', views.ordenes, name="ordenes-cliente"),
     
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

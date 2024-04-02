@@ -30,6 +30,8 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
+    is_cliente = models.BooleanField(default=False)
+    is_Proveedor = models.BooleanField(default=False)
 
     objects = UsuarioManager()
 
@@ -63,4 +65,5 @@ class Pedidos(models.Model):
     Direccion = models.CharField(max_length=200)
     Telefono = models.CharField(max_length=100)  
     Cantidad = models.CharField(max_length=100) 
-    Detalles = models.CharField(max_length=400)    
+    Detalles = models.CharField(max_length=400)
+        

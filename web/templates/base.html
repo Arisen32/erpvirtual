@@ -10,124 +10,50 @@
 <head>
     <link rel="stylesheet" type="text/css" href="{% static 'dashboard.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'sidebar.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'ordenes.css' %}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title%} {% endblock %}</title>
 </head>
 <body>   
-    <!-- <div id="main-container">
-        <div class="menu">
-                <ul class="menu-content">
-                    <li><a href="{%url 'web:dashboard' %}">
-                        <span class="material-symbols-outlined">home</span><span>Home</span></a></li>
-                    <li><a href="#">
-                        <span class="material-symbols-outlined">settings</span><span>Settings</span></a></li>
-                    <li><a href="#">
-                        <span class="material-symbols-outlined">person</span><span>Account</span></a></li>
-                    <li><a href="{%url 'web:logout'%}">
-                        <span class="material-symbols-outlined">logout</span><span>Logout</span></a></li>
-                </ul>
-        </div>
-    </div> -->
 
-    <!-- <div class="input">
-        <button class="value">
-          <i class="fa-solid fa-house"></i>
-          <span>Home</span>
-        </button>
-        <button class="value">
-          <i class="fa-solid fa-gears"></i>
-          <span>Settings</span>
-        </button>
-        <button class="value">
-           <i class="fa-solid fa-circle-user"></i> 
-            <span>Account </span>
-          </button>
-        <button class="value">
-           <i class="fa-solid fa-right-from-bracket"></i>
-          <span>Logout</span>
-        </button>
-      </div> -->
 
-      <div class="area"></div>
+      
       <nav class="main-menu">
         <ul>
+          
           <li>
             <a href="{%url 'web:dashboard' %}">
               <i class="fa fa-home fa-2x"></i>
               <span class="nav-text">
-                Community Dashboard
+               Dashboard
               </span>
             </a>
       
           </li>
-          <li class="has-subnav">
-            <a href="#">
-              <i class="fa fa-globe fa-2x"></i>
-              <span class="nav-text">
-                Global Surveyors
-              </span>
-            </a>
-      
-          </li>
-          <li class="has-subnav">
-            <a href="#">
-              <i class="fa fa-comments fa-2x"></i>
-              <span class="nav-text">
-                Group Hub Forums
-              </span>
-            </a>
-      
-          </li>
-          <li class="has-subnav">
-            <a href="#">
-              <i class="fa fa-camera-retro fa-2x"></i>
-              <span class="nav-text">
-                Survey Photos
-              </span>
-            </a>
-      
-          </li>
+          {% if request.user.is_cliente == 1 %}
           <li>
-            <a href="#">
-              <i class="fa fa-film fa-2x"></i>
+            <a href="{% url 'web:ordenes-cliente' %}">
+              <i class="fa fa-book fa-2x"></i>
               <span class="nav-text">
-                Surveying Tutorials
+                Mis  Ordenes
               </span>
             </a>
           </li>
+          {% else %}
+          
           <li>
             <a href="#">
               <i class="fa fa-book fa-2x"></i>
               <span class="nav-text">
-                Surveying Jobs
+                Ordenes de Trabajo
               </span>
             </a>
           </li>
-          <li>
-            <a href="#">
-              <i class="fa fa-cogs fa-2x"></i>
-              <span class="nav-text">
-                Tools & Resources
-              </span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="fa fa-map-marker fa-2x"></i>
-              <span class="nav-text">
-                Member Map
-              </span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="fa fa-info fa-2x"></i>
-              <span class="nav-text">
-                Documentation
-              </span>
-            </a>
-          </li>
+         
+         
+        
+        {% endif %}
         </ul>
       
         <ul class="logout">

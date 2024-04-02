@@ -6,9 +6,9 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 {% block content %}
+{% if request.user.is_cliente == 1 %}
 <section>
-      {{ form.errors }}
-      <form  method="post" action="">
+      <form id="pedido-form"  method="post">
           {% csrf_token %}
           <fieldset>
               <label for="Moneda">Moneda de Cotización<input class="form-control input-control" id="Moneda" type="text" name="Moneda" required></label>
@@ -18,15 +18,18 @@
           <fieldset>
             <label  for="Direccion">Direccion<input class="form-control 0" id="Direccion" type="text" name="Direccion" required></label>
             <label  for="Telefono">Telefono<input class="form-control input-control" id="Telefono" type="number" name="Telefono" required></label>
-            <label  for="Cantidad">Cantidad<input class="form-control input-control" id="Cantidad" type="text" name="Cantidad" required /></label>
+            <label  for="Cantidad">Cantidad<input class="form-control input-control" id="Cantidad" type="number" name="Cantidad" required /></label>
           </fieldset>
           <div class="textarea">
-            <label for="textarea">Detalles del Pedido:<textarea name="textarea" id="textarea" cols="3" rows="6"></textarea></label>
-            <button class="btn btn-primary" id="submit" type="submit" value="Enviar">Realizar pedido</button>
+            <label for="textarea">Detalles del Pedido:<textarea name="Detalles" id="textarea" cols="3" rows="6"></textarea></label>
+            <button class="btn cliente btn-primary" id="submit" type="submit" value="Enviar">Realizar pedido</button>
           </div>
       </form>
+</section>
 
-      <form class="second-form"  method="post" action="">
+{% else   %}
+<section class="second-section">
+      <form id="pedido-form"  method="post" >
         {% csrf_token %}
         <fieldset>
             <label for="nombre-empresa">Nombre de la Empresa<input class="form-control input-control" id="nombre-empresa" type="text" name="nombre-empresa" required></label>
@@ -44,31 +47,41 @@
         </div>
     </form>
 
-    <div class="cube-container">
-      <div class="container">
-        <div class="cube" id="cube">
-          <div class="side front">1</div>
-          <div class="side back">3</div>
-          <div class="side right">2</div>
-          <div class="side left">4</div>
-        </div>
-      </div>
-      <input type="range" min="0" max="360" value="0" id="rangeInput">
-    
-    
-      <script>
-        const cube = document.getElementById('cube');
-        const rangeInput = document.getElementById('rangeInput');
   
-        rangeInput.addEventListener('input', () => {
-          const value = rangeInput.value;
-          cube.style.transform = `rotateY(${-value}deg)`; /*Establece la direccion de giro*/
-        });
-  
-  
-      </script>
-    </div>
-  </section>
+</section>
+
+{% endif %}
+<div id="success-message" class="alert alert-success" style="display:none;">
+  <strong>¡Éxito!</strong> 
+</div>
+
+<script>
+  const form = document.getElementById('pedido-form');
+  const successMessage = document.getElementById('success-message');
+
+  form.addEventListener('submit', function (event) {
+      const requiredFields = form.querySelectorAll('[required]');
+      let isValid = true;
+      requiredFields.forEach(function (field) {
+          if (!field.value.trim()) {
+              field.classList.add('required');
+              isValid = false;
+          } else {
+              field.classList.remove('required');
+          }
+      });
+
+      if (!isValid) {
+          event.preventDefault();
+      } else {
+          successMessage.style.display = 'block';
+          setTimeout(function(){
+            successMessage.style.display = 'none';
+          }, 3000);
+      }
+  });
+</script>
+
 
 
 {% endblock %}

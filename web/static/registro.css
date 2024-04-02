@@ -1,15 +1,38 @@
-body{
+body {
     /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right,#051f30, #000000);
-    
+    background: -webkit-linear-gradient(to right, #051f30, #000000);
+
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     background: linear-gradient(#051f30, #000000);
-    box-sizing: content-box; 
+    box-sizing: content-box;
     height: 100vh !important;
+    color: white;
+}
 
-    }
-    
-.card{
-    
-    height: fit-content  !important;
-}    
+.card {
+
+    height: fit-content !important;
+}
+
+.p-5 {
+    padding: 9rem !important;
+}
+
+.form-check {
+    padding-left: 10rem;
+}
+
+.texto {
+    text-align: center;
+    padding: 3%;
+}
+
+h2 {
+    margin-bottom: 10%;
+}
+
+.custom-icon {
+    font-size: 1.5rem; /* Tamaño del icono */
+   
+  
+}

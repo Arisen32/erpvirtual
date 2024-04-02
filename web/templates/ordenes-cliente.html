@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title%} Mis Ordenes {% endblock %}
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+
+
+{% block content %}
+
+<div class="paginacion">
+  <nav>
+    <ul class="pagination">
+      {% if pedidos.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?ordenes-cliente=1">Primera</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="?ordenes-cliente={{ pedidos.previous_page_number }}">&laquo;</a>
+      </li>
+      {% endif %}
+      {% if pedidos.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?ordenes-cliente={{ pedidos.next_page_number }}">&raquo;</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="?ordenes-cliente={{ pedidos.paginator.num_pages }}">Última</a>
+      </li>
+      {% endif %}
+    </ul>
+  </nav>
+</div>
+
+
+{% for pedido in pedidos %}
+<div class="ordenes" >
+    <div class="card">
+        <div class="card-header">
+          {{ pedido.Solicitante }}
+          {{pagina}}
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Estatus:</h5>
+          <p class="card-text">Empresa: {{pedido.Empresa}}  Direccion: {{pedido.Direccion}} Cantidad: {{pedido.Cantidad}}</p>
+        </div>
+      </div>
+</div>
+{% endfor %}
+{% endblock %}

@@ -12,16 +12,10 @@ class Register(forms.Form):
     email = forms.CharField()
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
+    clienteCheckbox = forms.BooleanField(required=False)
+    proveedorCheckbox = forms.BooleanField(required=False)
 
-class RegisterEmpleado(forms.Form):
-    Nombre = forms.CharField()
-    Direccion = forms.CharField()
-    CodigoPostal = forms.CharField()
-    RFCempleado = forms.CharField()
-    Telefono = forms.CharField()
-    emailEmpleado = forms.CharField()
-    usernameEmpleado = forms.CharField()
-    passwordEmpleado = forms.CharField(widget=forms.PasswordInput)    
+   
         
         
 class LoginForm(forms.Form):
@@ -41,10 +35,3 @@ class Pedido(forms.Form):
     Detalles = forms.CharField()
     
 
-class Registro_Trabajador(forms.Form):
-    CodigoP = forms.CharField()
-    RFC = forms.CharField()
-    Direccion = forms.CharField()
-    email = forms.CharField()
-    username = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput) 

@@ -2,16 +2,13 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import login as auth_login , authenticate, logout as auth_logout
 from django.contrib.auth.decorators import login_required
-from .forms import Register ,LoginForm, Pedido, RegisterEmpleado
+from .forms import Register ,LoginForm, Pedido
 from .models import Usuario, Pedidos
 from django.conf import settings
 from django.contrib.auth.hashers import make_password
-from django.contrib import messages
-from django.contrib.auth.models import Group
-from django.http import HttpResponse
 from django.contrib.auth.hashers import check_password
-from django.core.mail import send_mail
-from smtplib import SMTPServerDisconnected
+from django.http import HttpResponse
+from django.core.paginator import Paginator
 
 
 
@@ -20,17 +17,12 @@ def inicio(request):
     context={}
     return render(request, "inicio.html", context)
 
-def send_email(email):
-    print(email )
 
 
-#Esta funcion sirve para registrar un usuario en la base de datos
+
 def registro(request):
     if request.method == 'POST':
-        # email = request.POST.get('email')
-        # send_email(email)
         form = Register(request.POST)
-
         if form.is_valid():
             # Obtén los datos del formulario
             RazonS = form.cleaned_data['RazonS']
@@ -42,41 +34,31 @@ def registro(request):
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
 
-            # Usa make_password para hashear la contraseña antes de almacenarla
+            # Verificar si el checkbox de cliente está seleccionado
+            is_cliente = 'clienteCheckbox' in request.POST
+
+            # Verificar si el checkbox de proveedor está seleccionado
+            is_proveedor = 'proveedorCheckbox' in request.POST
+
+            # Hash de la contraseña
             hashed_password = make_password(password)
 
-            # Crea una instancia de Usuario y guárdala en la base de datos
-            usuario = Usuario(RazonS=RazonS, DireccionF=DireccionF, CodigoP=CodigoP, RFC=RFC, DireccionE=DireccionE, email=email, username=username, password=hashed_password)
+            # Crear el usuario y guardar
+            usuario = Usuario(RazonS=RazonS, DireccionF=DireccionF, CodigoP=CodigoP, RFC=RFC, DireccionE=DireccionE, email=email, username=username, password=hashed_password, is_cliente=is_cliente, is_Proveedor=is_proveedor)
             usuario.save()
 
-            # # Envía el correo de confirmación
-            # subject = 'Confirmación de registro'
-            # message = f'Tu cuenta en la plataforma ha sido creada con éxito.'
-            # from_email = settings.DEFAULT_FROM_EMAIL
-            # recipient_list = [email]
-            
-
-            # try:
-
-            #     send_mail(subject, message, from_email, recipient_list, fail_silently=False)
-            # except SMTPServerDisconnected as e:
-            #    print(f"SMTPServerDisconnected: {e}")
-            
-
-            
-
-            
-
-            # Redirecciona a una página de éxito o realiza otras acciones necesarias
-            return redirect('web:login')  # Cambia 'pagina_de_exito' por la URL a la que quieras redirigir
+            return redirect('web:login')
 
     else:
         form = Register()
-        
+
     context = {
         'form': form,
     }
     return render(request, "registro.html", context)
+
+
+   
 
 
 #Esta funcion sirve para que el usuario inicie sesion autenticandolo y verificandolo desde la base de datos
@@ -132,16 +114,14 @@ def dashboard(request):
             Cantidad = form.cleaned_data['Cantidad']
             Detalles = form.cleaned_data['Detalles']
 
-            datos = Pedidos(Moneda=Moneda,Solicitante=Solicitante,Empresa=Empresa,Direccion=Direccion,Telefono=Telefono,Cantidad=Cantidad,Detalles=Detalles)
-            datos.save()
+            pedido = Pedidos(Moneda=Moneda, Solicitante=Solicitante, Empresa=Empresa, Direccion=Direccion, Telefono=Telefono, Cantidad=Cantidad, Detalles=Detalles)
+            pedido.save()
+
             return redirect('web:dashboard')
-        else:
-            print(form.errors)
-            print("no funciona")
+
+        
     else:
         form = Pedido()
-        print("Formulario no válido")
-        print(form.errors)
           
     
     context = {
@@ -149,3 +129,23 @@ def dashboard(request):
     }
 
     return render(request, "dashboard.html", context)
+
+
+
+def ordenes(request):
+    
+    pedidos_list = Pedidos.objects.all()
+    paginator = Paginator(pedidos_list, 3)
+    pagina = request.GET.get("ordenes-cliente") or 1
+    posts = paginator.get_page(pagina)
+    current_page = int(pagina)
+    paginas = range(1, posts.paginator.num_pages + 1)
+    
+
+    context = {
+        'pedidos': posts,
+        'paginas': paginas,
+        'current_page': current_page
+    }
+
+    return render(request, "ordenes-cliente.html", context)
