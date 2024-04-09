@@ -35,8 +35,8 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
 
     objects = UsuarioManager()
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['email']
 
     groups = models.ManyToManyField(
         'auth.Group',
@@ -55,7 +55,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     )
 
     def __str__(self):
-        return self.email
+        return self.username
     
     
 class Pedidos(models.Model):
@@ -66,4 +66,6 @@ class Pedidos(models.Model):
     Telefono = models.CharField(max_length=100)  
     Cantidad = models.CharField(max_length=100) 
     Detalles = models.CharField(max_length=400)
+    usuario = models.ForeignKey('Usuario', to_field='id' , on_delete=models.CASCADE, default='')
+    estatus =models.CharField(max_length=100, null=True)
         

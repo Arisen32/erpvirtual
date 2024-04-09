@@ -19,54 +19,46 @@
 
 
       
-      <nav class="main-menu">
-        <ul>
-          
-          <li>
+  <nav class="main-menu">
+    <ul>
+        <li>
             <a href="{%url 'web:dashboard' %}">
-              <i class="fa fa-home fa-2x"></i>
-              <span class="nav-text">
-               Dashboard
-              </span>
+                <i class="fa fa-home fa-2x"></i>
+                <span class="nav-text">Dashboard</span>
             </a>
-      
-          </li>
-          {% if request.user.is_cliente == 1 %}
-          <li>
+        </li>
+        {% if request.user.is_cliente == 1 %}
+        <li>
             <a href="{% url 'web:ordenes-cliente' %}">
-              <i class="fa fa-book fa-2x"></i>
-              <span class="nav-text">
-                Mis  Ordenes
-              </span>
+                <i class="fa fa-book fa-2x"></i>
+                <span class="nav-text">Mis Ordenes</span>
             </a>
-          </li>
-          {% else %}
-          
-          <li>
-            <a href="#">
-              <i class="fa fa-book fa-2x"></i>
-              <span class="nav-text">
-                Ordenes de Trabajo
-              </span>
+        </li>
+        {% else %}
+        <li>
+            <a href="{% url 'web:aceptar-ordenes' %}">
+                <i class="fa fa-book fa-2x"></i>
+                <span class="nav-text">Ordenes de Trabajo</span>
             </a>
-          </li>
-         
-         
-        
+        </li>
+        <li>
+            <a href="{% url 'web:reenvio-orden' %}">
+                <i class="fa fa-envelope fa-2x"></i>
+                <span class="nav-text">Reenvio de Orden</span>
+            </a>
+        </li>
         {% endif %}
-        </ul>
-      
-        <ul class="logout">
-          <li>
+    </ul>
+    <ul class="logout">
+        <li>
             <a href="{%url 'web:logout'%}">
-              <i class="fa fa-power-off fa-2x"></i>
-              <span class="nav-text">
-                Logout
-              </span>
+                <i class="fa fa-power-off fa-2x"></i>
+                <span class="nav-text">Logout</span>
             </a>
-          </li>
-        </ul>
-      </nav>
+        </li>
+    </ul>
+</nav>
+
 {% block content %}
  
 {% endblock %}

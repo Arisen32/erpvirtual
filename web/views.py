@@ -7,8 +7,12 @@ from .models import Usuario, Pedidos
 from django.conf import settings
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.hashers import check_password
-from django.http import HttpResponse
 from django.core.paginator import Paginator
+
+
+
+
+
 
 
 
@@ -61,7 +65,7 @@ def registro(request):
    
 
 
-#Esta funcion sirve para que el usuario inicie sesion autenticandolo y verificandolo desde la base de datos
+
 def login(request):
     if request.user.is_authenticated:
         return redirect('web:dashboard')
@@ -75,9 +79,9 @@ def login(request):
             try:
                 user = Usuario.objects.get(email=email)
                 if check_password(password, user.password):
-                    auth_login(request, user)  # Iniciar sesión manualmente
+                    auth_login(request, user)  
                     print(f'Usuario autenticado manualmente: {user}')
-                    return redirect('web:dashboard')  # Redirigir a la página después de la autenticación
+                    return redirect('web:dashboard')  
                 else:
                     print('Contraseña incorrecta')
             except Usuario.DoesNotExist:
@@ -122,30 +126,89 @@ def dashboard(request):
         
     else:
         form = Pedido()
-          
+
+
+
+    username = request.user
+    
+
     
     context = {
         'form': form,
+        
     }
 
     return render(request, "dashboard.html", context)
 
 
-
+@login_required
 def ordenes(request):
+    usuario_id = request.user.id
     
-    pedidos_list = Pedidos.objects.all()
+    # Filtrar los pedidos por el usuario_id
+    pedidos_list = Pedidos.objects.filter(usuario_id=usuario_id)
+    
     paginator = Paginator(pedidos_list, 3)
     pagina = request.GET.get("ordenes-cliente") or 1
     posts = paginator.get_page(pagina)
     current_page = int(pagina)
     paginas = range(1, posts.paginator.num_pages + 1)
-    
 
+    if request.method == 'POST':
+        pedido_id = request.POST.get('pedido_id')
+        pedido = pedidoo(Pedidos, id=pedido_id)
+        pedido.delete()
+        
     context = {
         'pedidos': posts,
         'paginas': paginas,
         'current_page': current_page
     }
 
-    return render(request, "ordenes-cliente.html", context)
+    return render(request, "ordenes-cliente.html", context)   
+
+
+@login_required
+def aceptar_ordenes(request):
+    pedidos_list = Pedidos.objects.all()
+    paginator = Paginator(pedidos_list, 3)
+    pagina = request.GET.get("aceptar-ordenes") or 1
+    posts = paginator.get_page(pagina)
+    current_page = int(pagina)
+    paginas = range(1, posts.paginator.num_pages + 1)
+
+    if request.method == 'POST':
+        pedido_id = request.POST.get('pedido_id')
+        pedido = Pedidos.objects.get(id=pedido_id)
+
+        accion = request.POST.get('accion').lower()  # Convertir a minúsculas para evitar problemas de capitalización
+
+        if accion == 'aceptar':
+            pedido.estatus = 'Aceptado'
+        elif accion == 'rechazar':
+            pedido.estatus = 'Pendiente'
+        elif accion == 'terminar':
+            pedido.estatus = 'Terminado'
+
+        pedido.save()
+        
+
+
+
+    context = {
+        'pedidos': posts,
+        'paginas': paginas,
+        'current_page': current_page
+    }
+    return render(request, "aceptar-ordenes.html", context)
+
+
+def reenvio_orden(request):
+    pedido_aceptado = Pedidos.objects.filter(estatus='Aceptado').first()
+
+    context = {
+        'pedido_aceptado': pedido_aceptado
+    }
+    return render(request, "reenvio-orden.html", context)
+  
+

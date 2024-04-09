@@ -1,11 +1,14 @@
 {% extends "base.html" %}
 
-{% block title %}Mis Ordenes{% endblock %}
+{% block title %}Ordenes de Trabajo{% endblock %}
 
 {% block content %}
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+
 
 <style>
     .ordenes {
@@ -39,13 +42,32 @@
                     <div class="card-body">
                         <h5 class="card-title">Solicitante: {{pedido.Solicitante}}
                         </h5>
-                        <p class="card-text">Empresa: {{pedido.Empresa}}  Direccion: {{pedido.Direccion}} Cantidad: {{pedido.Cantidad}}</p>
-                        <form method="post" action="{% url 'web:ordenes-cliente' %}">
+                        <p class="card-text">Empresa: {{pedido.Empresa}}  Direccion: {{pedido.Direccion}} Cantidad: {{pedido.Cantidad}}</p> 
+                        <form method="POST" action="{% url 'web:aceptar-ordenes' %}">
                             {% csrf_token %}
                             <input type="hidden" name="pedido_id" value="{{ pedido.id }}">
-                            <button type="submit" class="btn btn-primary" style="background-color: red;">Eliminar Orden</button>
-                        </form>
+                            <input type="hidden" name="accion" value="aceptar">
+                            <button style="background-color: greenyellow;" type="submit">Aceptar Pedido</button>
+                        </form> 
+                        {% if pedido.estatus != 'Pendiente' %}
                         
+                        <form method="POST" action="{% url 'web:aceptar-ordenes' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="pedido_id" value="{{ pedido.id }}">
+                            <input type="hidden" name="accion" value="rechazar">
+                            <button style="background-color: blue;" type="submit">Rechazar Pedido</button>
+                        </form>
+                        <form method="POST" action="{% url 'web:aceptar-ordenes' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="pedido_id" value="{{ pedido.id }}">
+                            <input type="hidden" name="accion" value="terminar">
+                            <button style="background-color: red;" type="submit">Terminar Pedido</button>
+                        </form>
+                    {% else %}
+                       
+                        <button style="background-color: blue;" disabled>Rechazar Pedido</button>
+                        <button style="background-color: red;" disabled>Terminar Pedido</button>
+                    {% endif %}
                     </div>
                 </div>
             </div>
@@ -53,28 +75,29 @@
         {% endfor %}
     </div>
 </div>
+  
 
 <div class="paginacion">
     <nav>
         <ul class="pagination justify-content-center">
             {% if pedidos.has_previous %}
             <li class="page-item">
-                <a class="page-link" href="?ordenes-cliente=1">Primera</a>
+                <a class="page-link" href="?aceptar-ordenes=1">Primera</a>
             </li>
             <li class="page-item">
-                <a class="page-link" href="?ordenes-cliente={{ pedidos.previous_page_number }}">&laquo;</a>
+                <a class="page-link" href="?aceptar-ordenes={{ pedidos.previous_page_number }}">&laquo;</a>
             </li>
             {% endif %}
             {% if pedidos.has_next %}
             <li class="page-item">
-                <a class="page-link" href="?ordenes-cliente={{ pedidos.next_page_number }}">&raquo;</a>
+                <a class="page-link" href="?aceptar-ordenes={{ pedidos.next_page_number }}">&raquo;</a>
             </li>
             <li class="page-item">
-                <a class="page-link" href="?ordenes-cliente={{ pedidos.paginator.num_pages }}">Última</a>
+                <a class="page-link" href="?aceptar-ordenes={{ pedidos.paginator.num_pages }}">Última</a>
             </li>
             {% endif %}
         </ul>
     </nav>
 </div>
 
-{% endblock %}
+{%endblock%}

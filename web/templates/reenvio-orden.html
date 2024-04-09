@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}Estado de la Orden de Trabajo{% endblock %}
+
+{% block content %}
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+
+
+
+
+
+<div class="container" style="color: white;">
+  <form method="post">
+    {% csrf_token %}
+    <div class="row">
+      <div class="col-6">
+        <label for="moneda-cotizacion">Moneda de Cotizacion:</label>
+      </div>
+      <div class="col-6">
+        <input id="moneda-cotizacion" type="text" name="moneda-cotizacion" value="{{ pedido_aceptado.Moneda }}" readonly>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <label for="nombre-empresa">Nombre de la Empresa:</label>
+      </div>
+      <div class="col-6">
+        <input id="nombre-empresa" type="text" name="nombre-empresa" value="{{ pedido_aceptado.Empresa }}" readonly>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <label for="direccion">Direccion:</label>
+      </div>
+      <div class="col-6">
+        <input id="direccion" type="text" name="direccion" value="{{ pedido_aceptado.Direccion }}" readonly>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <label for="direccion">Cantidad:</label>
+      </div>
+      <div class="col-6">
+        <input id="direccion" type="text" name="direccion" value="{{ pedido_aceptado.Cantidad }}" readonly>
+      </div>
+    </div> 
+    <div class="row">
+      <div class="col-6">
+        <label for="direccion">Telefono:</label>
+      </div>
+      <div class="col-6">
+        <input id="direccion" type="text" name="direccion" value="{{ pedido_aceptado.Telefono }}" readonly>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <label for="direccion">Detalles:</label>
+      </div>
+      <div class="col-6">
+        <input id="direccion" type="text" name="direccion" value="{{ pedido_aceptado.Detalles }}" readonly>
+      </div>
+    </div>  
+    
+    <div class="row">
+      <input type="submit" value="Enviar">
+    </div>
+  </form>
+</div>
+
+
+
+{%endblock%}
